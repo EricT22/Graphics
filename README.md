@@ -1,1 +1,1 @@
-# CSC 405
+# CSC 405 Graphics
