@@ -1,5 +1,3 @@
-
-
 public class Vector extends VectorAbstract{
 
     public Vector(double x, double y, double z){
@@ -17,7 +15,7 @@ public class Vector extends VectorAbstract{
 
     @Override
     public double dot(VectorAbstract v2) {
-        return this.x * v2.x + this.y + v2.y + this.z + v2.z;
+        return this.x * v2.x + this.y * v2.y + this.z * v2.z;
     }
 
 
