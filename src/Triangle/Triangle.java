@@ -1,6 +1,8 @@
 public class Triangle extends TriangleAbstract {
 
     public Triangle(VectorAbstract a, VectorAbstract b, VectorAbstract c){
+        super();
+        
         vertices = new VectorAbstract[3];
         vertices[0] = a;
         vertices[1] = b;

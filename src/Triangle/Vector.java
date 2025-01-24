@@ -1,6 +1,8 @@
 public class Vector extends VectorAbstract{
 
     public Vector(double x, double y, double z){
+        super();
+        
         this.x = x;
         this.y = y;
         this.z = z;
