@@ -1,3 +1,5 @@
+package Triangle;
+
 import Vector.*;
 
 public class VectorTriangleTest {
