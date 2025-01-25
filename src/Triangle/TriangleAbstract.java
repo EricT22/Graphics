@@ -1,3 +1,5 @@
+import Vector.VectorAbstract;
+
 /**
  * Abstract class for creating a Triangle class
  */

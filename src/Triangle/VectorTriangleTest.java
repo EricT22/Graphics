@@ -1,3 +1,5 @@
+import Vector.*;
+
 public class VectorTriangleTest {
 	/**
 	 * Test various methods of the TriangleAbstract and VectorAbstract classes

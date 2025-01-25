@@ -1,3 +1,5 @@
+package Vector;
+
 /**
  * Abstract class for creating a 3D Vector class
  * The vector will be represented by one point. The other is assumed to be (0, 0, 0)

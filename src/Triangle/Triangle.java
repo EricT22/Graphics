@@ -1,3 +1,5 @@
+import Vector.*;
+
 public class Triangle extends TriangleAbstract {
 
     public Triangle(VectorAbstract a, VectorAbstract b, VectorAbstract c){
@@ -12,9 +14,9 @@ public class Triangle extends TriangleAbstract {
 
     @Override
     public VectorAbstract getCenter() {
-        return new Vector((vertices[0].x + vertices[1].x + vertices[2].x) / 3,
-                          (vertices[0].y + vertices[1].y + vertices[2].y) / 3,
-                          (vertices[0].z + vertices[1].z + vertices[2].z) / 3);
+        return new Vector((vertices[0].getX() + vertices[1].getX() + vertices[2].getX()) / 3,
+                          (vertices[0].getY() + vertices[1].getY() + vertices[2].getY()) / 3,
+                          (vertices[0].getZ() + vertices[1].getZ() + vertices[2].getZ()) / 3);
     }
 
 
@@ -26,13 +28,13 @@ public class Triangle extends TriangleAbstract {
             try {
                 int j = i + 1;
 
-                perimeter += Math.sqrt(Math.pow(vertices[j].x - vertices[i].x, 2) + 
-                                       Math.pow(vertices[j].y - vertices[i].y, 2) + 
-                                       Math.pow(vertices[j].z - vertices[i].z, 2));                
+                perimeter += Math.sqrt(Math.pow(vertices[j].getX() - vertices[i].getX(), 2) + 
+                                       Math.pow(vertices[j].getY() - vertices[i].getY(), 2) + 
+                                       Math.pow(vertices[j].getZ() - vertices[i].getZ(), 2));                
             } catch (IndexOutOfBoundsException e) {
-                perimeter += Math.sqrt(Math.pow(vertices[i].x - vertices[0].x, 2) + 
-                                       Math.pow(vertices[i].y - vertices[0].y, 2) + 
-                                       Math.pow(vertices[i].z - vertices[0].z, 2));
+                perimeter += Math.sqrt(Math.pow(vertices[i].getX() - vertices[0].getX(), 2) + 
+                                       Math.pow(vertices[i].getY() - vertices[0].getY(), 2) + 
+                                       Math.pow(vertices[i].getZ() - vertices[0].getZ(), 2));
             }
         }
 
@@ -53,7 +55,7 @@ public class Triangle extends TriangleAbstract {
         for (int i = 1; i < vertices.length; i++){
             int j = i - 1;
 
-            sides[j] = new Vector(vertices[i].x - vertices[j].x, vertices[i].y - vertices[j].y, vertices[i].z - vertices[j].z); 
+            sides[j] = new Vector(vertices[i].getX() - vertices[j].getX(), vertices[i].getY() - vertices[j].getY(), vertices[i].getZ() - vertices[j].getZ()); 
         }
 
         return sides[0].cross(sides[1]);

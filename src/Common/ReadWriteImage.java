@@ -1,4 +1,4 @@
-package ReadWrite;
+package Common;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

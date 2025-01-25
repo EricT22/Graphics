@@ -1,3 +1,5 @@
+package Vector;
+
 public class Vector extends VectorAbstract{
 
     public Vector(double x, double y, double z){
