@@ -18,18 +18,19 @@ public class Lines extends LineAbstract {
             throw new NullPointerException("Frame buffer is null.");
         }
 
-        if (x0 > x1) {
-            int tempX = x0;
-            int tempY = y0;
-
-            x0 = x1;
-            y0 = y1;
-            x1 = tempX;
-            y1 = tempY;
-        }
 
         try {
             if (x1 - x0 == 0){
+                if (y0 > y1) {
+                    int tempX = x0;
+                    int tempY = y0;
+        
+                    x0 = x1;
+                    y0 = y1;
+                    x1 = tempX;
+                    y1 = tempY;
+                }
+
                 for (int y = y0; y <= y1; y++){
                     writePixel(x0, y, framebuffer, new Color(255, 255, 255));
                 }
@@ -37,12 +38,32 @@ public class Lines extends LineAbstract {
                 double m = (double)(y1 - y0) / (x1 - x0);
                 
                 if ((0 <= m && m <= 1) || (-1 <= m && m <= 0)){
+                    if (x0 > x1) {
+                        int tempX = x0;
+                        int tempY = y0;
+            
+                        x0 = x1;
+                        y0 = y1;
+                        x1 = tempX;
+                        y1 = tempY;
+                    }
+
                     double y = y0;
                     for (int x = x0; x <= x1; x++){
                         writePixel(x, (int)Math.round(y), framebuffer, new Color(255, 255, 255));
                         y += m;
                     }
                 } else if (m > 1 || m < -1){
+                    if (y0 > y1) {
+                        int tempX = x0;
+                        int tempY = y0;
+            
+                        x0 = x1;
+                        y0 = y1;
+                        x1 = tempX;
+                        y1 = tempY;
+                    }
+                    
                     double x = x0;
                     for (int y = y0; y <= y1; y++){
                         writePixel((int)Math.round(x), y, framebuffer, new Color(255, 255, 255));
