@@ -63,7 +63,8 @@ public class ReadWriteImage {
 	    			bi.setRGB(j, i, pixel);
 	    		}
 	    	}
-			ImageIO.write(bi, "PNG", new File(filename));
+			
+			ImageIO.write(bi, "PNG", new File("Graphics/imgs/" + filename));
 		}
 		catch (IOException e) {
 			throw e;
