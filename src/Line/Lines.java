@@ -1,6 +1,9 @@
 package Line;
 
 import java.awt.Color;
+// import java.io.IOException;
+
+// import Common.ReadWriteImage;
 
 public class Lines extends LineAbstract {
 
@@ -13,6 +16,16 @@ public class Lines extends LineAbstract {
         
         if (framebuffer == null) {
             throw new NullPointerException("Frame buffer is null.");
+        }
+
+        if (x0 > x1) {
+            int tempX = x0;
+            int tempY = y0;
+
+            x0 = x1;
+            y0 = y1;
+            x1 = tempX;
+            y1 = tempY;
         }
 
         try {
@@ -68,5 +81,27 @@ public class Lines extends LineAbstract {
         framebuffer[1][y][x] = color.getBlue();
         framebuffer[2][y][x] = color.getGreen();
     }
+
+    // public static void main(String[] args) {
+    //     LineAbstract lb = new Lines();
+		
+	// 	{
+	// 		int framebuffer[][][] = new int[3][256][256];
+    //         // x0 > x1
+    //         lb.twoPointForm(255, 0, 0, 255, framebuffer);
+
+    //         // y0 > y1 
+    //         lb.twoPointForm(0, framebuffer[0].length - 1, 255, 127, framebuffer);
+
+    //         // x0 > x1 and y0 > y1
+    //         lb.twoPointForm(255, 255, 0, 0, framebuffer);
+            
+    //         try {
+    //             ReadWriteImage.writeImage(framebuffer, "twopointlinetest.png");
+    //         } catch (IOException e) {
+
+    //         }
+    //     }
+    // }
     
 }
