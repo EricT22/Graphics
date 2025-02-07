@@ -59,6 +59,13 @@ public abstract class TriangleAbstract {
 	public void setVertices (VectorAbstract[] vertices) {
 		this.vertices = vertices.clone();
 	}
+	
+	/**
+	 * Renders the triangle to a provided frame buffer
+	 * @param framebuffer Frame buffer to receive rendering
+	 * @param shownormal true if normals are to be rendered, false otherwise
+	 */
+	public abstract void render(int[][][] framebuffer, boolean shownormal);
 
 	@Override
 	public String toString() {
