@@ -1,6 +1,7 @@
 package Triangle;
 
 import Vector.*;
+import Line.*;
 
 public class Triangle extends TriangleAbstract {
 
@@ -61,6 +62,37 @@ public class Triangle extends TriangleAbstract {
         }
 
         return sides[0].cross(sides[1]);
+    }
+
+
+    @Override
+    public void render(int[][][] framebuffer, boolean shownormal) {
+        ScanConvertAbstract sc = new ScanConvertLine();
+
+        for (int i = 0; i < vertices.length; i++) {
+            try {
+                int j = i + 1;
+
+                sc.bresenham((int)vertices[i].getX(), (int)vertices[i].getY(), 
+                             (int)vertices[j].getX(), (int)vertices[j].getY(), 
+                             framebuffer);        
+            } catch (IndexOutOfBoundsException e) {
+                sc.bresenham((int)vertices[i].getX(), (int)vertices[i].getY(), 
+                             (int)vertices[0].getX(), (int)vertices[0].getY(), 
+                             framebuffer);    
+            }
+        }
+
+        if (shownormal) {
+            VectorAbstract normal = getNormal().unit().mult(20);
+            VectorAbstract center = getCenter();
+
+            normal = normal.add(center);
+
+            sc.bresenham((int)center.getX(), (int)center.getY(), 
+                         (int)normal.getX(), (int)normal.getY(), 
+                         framebuffer);
+        }
     }
     
 }
