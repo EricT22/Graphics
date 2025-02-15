@@ -1,6 +1,7 @@
 package Line;
 
 import Common.ReadWriteImage;
+import Color.*;
 // import Triangle.Triangle;
 // import Triangle.TriangleAbstract;
 // import Vector.Vector;
@@ -28,12 +29,13 @@ public class ScanConvertTest {
 		}
 		{
 			int framebuffer[][][] = new int[3][256][256];
+			ColorAbstract white = new Color(1.0, 1.0, 1.0);
 			try {
 				for (int x = 0; x < framebuffer[0][0].length; x += anglesteps) {
-					sc.bresenham(x, 0, framebuffer[0][0].length - x - 1, framebuffer[0].length - 1, framebuffer);
+					sc.bresenham(x, 0, framebuffer[0][0].length - x - 1, framebuffer[0].length - 1, white, white, framebuffer);
 				}
 				for (int y = 0; y < framebuffer[0].length; y += anglesteps) {
-					sc.bresenham(0, y, framebuffer[0][0].length - 1, framebuffer[0].length - y - 1, framebuffer);
+					sc.bresenham(0, y, framebuffer[0][0].length - 1, framebuffer[0].length - y - 1, white, white, framebuffer);
 				}
 				ReadWriteImage.writeImage(framebuffer, "bresenham.png");
 			}
