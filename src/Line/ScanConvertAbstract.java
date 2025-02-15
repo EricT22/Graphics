@@ -12,6 +12,7 @@ public abstract class ScanConvertAbstract {
 	 * @param framebuffer frame buffer to receive the scan conversion
 	 * @throws NullPointerException thrown if the frame buffer is null
 	 * @throws ArrayIndexOutOfBoundsException thrown if a coordinate goes out of range of the frame buffer
+	 * @deprecated
 	 */
 	public abstract void digitaldifferentialanalyzer(int x0, int y0, int x1, int y1, int framebuffer[][][]) throws NullPointerException, ArrayIndexOutOfBoundsException;
 		
