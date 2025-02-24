@@ -36,6 +36,12 @@ public abstract class TriangleAbstract {
 	 */
 	public abstract VectorAbstract getNormal();
 	
+	/**
+	 * Renders the triangle to the frame buffer
+	 * @param framebuffer frame buffer to receive render
+	 * @param shownormal show surface normal or not
+	 */
+	public abstract void render(int[][][] framebuffer, boolean shownormal);
 	
 	/**
 	 * Default constructor for use by the extending class only (can't construct an abstract class)
@@ -61,11 +67,48 @@ public abstract class TriangleAbstract {
 	}
 	
 	/**
-	 * Renders the triangle to a provided frame buffer
-	 * @param framebuffer Frame buffer to receive rendering
-	 * @param shownormal true if normals are to be rendered, false otherwise
+	 * Rotate triangle data about the X axis
+	 * @param theta angle of rotation in radians
+	 * @fixedpoint fixed point for the rotation
+	 * @param data data points to be rotated
+	 * @return rotated data points 4 x N homogeneous coordinate points
 	 */
-	public abstract void render(int[][][] framebuffer, boolean shownormal);
+	public abstract TriangleAbstract rotateX(double theta, VectorAbstract fixedpoint, TriangleAbstract data);
+
+	/**
+	 * Rotate triangle data about the Y axis
+	 * @param theta angle of rotation in radians
+	 * @fixedpoint fixed point for the rotation
+	 * @param data data points to be rotated
+	 * @return rotated data points 4 x N homogeneous coordinate points
+	 */
+	public abstract TriangleAbstract rotateY(double theta, VectorAbstract fixedpoint, TriangleAbstract data);
+
+	/**
+	 * Rotate triangle data about the Z axis
+	 * @param theta angle of rotation in radians
+	 * @fixedpoint fixed point for the rotation
+	 * @param data data points to be rotated
+	 * @return rotated data points 4 x N homogeneous coordinate points
+	 */
+	public abstract TriangleAbstract rotateZ(double theta, VectorAbstract fixedpoint, TriangleAbstract data);
+
+	/**
+	 * Translate triangle data
+	 * @param trans vector of translation amounts
+	 * @param data data points to be translated
+	 * @return translated data points 4 x N homogeneous coordinate points
+	 */
+	public abstract TriangleAbstract translate(VectorAbstract transvec, TriangleAbstract data);
+
+	/**
+	 * Scale triangle data around a specified point
+	 * @param factor scale factors (x, y, z)
+	 * @fixedpoint fixed point for the rotation
+	 * @param data data to be scaled 4xN homogeneous coordinate points
+	 * @return scaled data
+	 */
+	public abstract TriangleAbstract scale (VectorAbstract factor, VectorAbstract fixedpoint, TriangleAbstract data);
 
 	@Override
 	public String toString() {
