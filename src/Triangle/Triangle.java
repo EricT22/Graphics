@@ -8,6 +8,20 @@ public class Triangle extends TriangleAbstract {
 
     public Triangle(VectorAbstract a, VectorAbstract b, VectorAbstract c){
         super();
+
+        Color white = new Color(1.0, 1.0, 1.0);
+
+        if (a.getColor() == null) {
+            a.setColor(white);
+        }
+
+        if (b.getColor() == null) {
+            b.setColor(white);
+        }
+
+        if (c.getColor() == null) {
+            c.setColor(white);
+        }
         
         vertices = new VectorAbstract[3];
         vertices[0] = a;
@@ -20,7 +34,8 @@ public class Triangle extends TriangleAbstract {
     public VectorAbstract getCenter() {
         return new Vector((vertices[0].getX() + vertices[1].getX() + vertices[2].getX()) / 3,
                           (vertices[0].getY() + vertices[1].getY() + vertices[2].getY()) / 3,
-                          (vertices[0].getZ() + vertices[1].getZ() + vertices[2].getZ()) / 3);
+                          (vertices[0].getZ() + vertices[1].getZ() + vertices[2].getZ()) / 3,
+                          null);
     }
 
 
@@ -59,7 +74,7 @@ public class Triangle extends TriangleAbstract {
         for (int i = 1; i < vertices.length; i++){
             int j = i - 1;
 
-            sides[j] = new Vector(vertices[i].getX() - vertices[j].getX(), vertices[i].getY() - vertices[j].getY(), vertices[i].getZ() - vertices[j].getZ()); 
+            sides[j] = new Vector(vertices[i].getX() - vertices[j].getX(), vertices[i].getY() - vertices[j].getY(), vertices[i].getZ() - vertices[j].getZ(), null); 
         }
 
         return sides[0].cross(sides[1]);
@@ -77,12 +92,12 @@ public class Triangle extends TriangleAbstract {
 
                 sc.bresenham((int)vertices[i].getX(), (int)vertices[i].getY(), 
                              (int)vertices[j].getX(), (int)vertices[j].getY(),
-                             white, white, 
+                             vertices[i].getColor(), vertices[j].getColor(), 
                              framebuffer);        
             } catch (IndexOutOfBoundsException e) {
                 sc.bresenham((int)vertices[i].getX(), (int)vertices[i].getY(), 
                              (int)vertices[0].getX(), (int)vertices[0].getY(),
-                             white, white, 
+                             vertices[i].getColor(), vertices[0].getColor(), 
                              framebuffer);    
             }
         }
@@ -92,7 +107,8 @@ public class Triangle extends TriangleAbstract {
             VectorAbstract center = getCenter();
 
             normal = normal.add(center);
-
+            
+            // Color of normal and center vectors are null, so we set color to white as default
             sc.bresenham((int)center.getX(), (int)center.getY(), 
                          (int)normal.getX(), (int)normal.getY(),
                          white, white, 
