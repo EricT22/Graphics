@@ -1,5 +1,7 @@
 package Vector;
 
+import Color.*;
+
 /**
  * Abstract class for creating a 3D Vector class
  * The vector will be represented by one point. The other is assumed to be (0, 0, 0)
@@ -8,13 +10,18 @@ public abstract class VectorAbstract {
 
 	/**
 	 * The vector is stored as a direction vector (not tail and head form.) This will
-	 * simplify manipulations to be performed later. It is assumed that the head is [0, 0, 0]
+	 * simplify manipulations to be performed later.
 	 * 
 	 * x, y, z coordinates of the direction vector.
 	 */
 	protected double x;
 	protected double y;
 	protected double z;
+	
+	/**
+	 * RGB color assigned to this coordinate
+	 */
+	protected Color color;
 	
 	/**
 	 * Compute the angle between two vectors, this and the argument
@@ -39,8 +46,7 @@ public abstract class VectorAbstract {
 
 	/**
 	 * Compute the unit vector of this
-	 * @param v2 the second vector
-	 * @return the cross product of the two vectors normalized to unit length
+	 * @return the unit vector of this
 	 */
 	public abstract VectorAbstract unit();
 
@@ -72,10 +78,7 @@ public abstract class VectorAbstract {
 	public abstract VectorAbstract mult(double scale);
 
 
-	/**
-	 * Default constructor for use by the extending class only (can't construct an abstract class)
-	 */	
-	protected VectorAbstract() {
+	public VectorAbstract() {
 		super();
 	}
 
@@ -101,6 +104,26 @@ public abstract class VectorAbstract {
 	 */
 	public double getZ() {
 		return z;
+	}
+	
+	public void setX(double x) {
+		this.x = x;
+	}
+	
+	public void setY(double y) {
+		this.y = y;
+	}
+	
+	public void setZ(double z) {
+		this.z = z;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+	
+	public void setColor(Color c) {
+		color = c;
 	}
 	
 	@Override

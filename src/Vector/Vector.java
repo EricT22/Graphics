@@ -1,13 +1,17 @@
 package Vector;
 
+import Color.*;
+
 public class Vector extends VectorAbstract{
 
-    public Vector(double x, double y, double z){
+    public Vector(double x, double y, double z, Color c){
         super();
         
         this.x = x;
         this.y = y;
         this.z = z;
+
+        this.color = c;
     }
 
 
@@ -25,7 +29,7 @@ public class Vector extends VectorAbstract{
 
     @Override
     public VectorAbstract cross(VectorAbstract v2) {
-        return new Vector((this.y * v2.z - this.z * v2.y), (this.z * v2.x - this.x * v2.z), (this.x * v2.y - this.y * v2.x));
+        return new Vector((this.y * v2.z - this.z * v2.y), (this.z * v2.x - this.x * v2.z), (this.x * v2.y - this.y * v2.x), null);
     }
 
 
@@ -33,7 +37,7 @@ public class Vector extends VectorAbstract{
     public VectorAbstract unit() {
         double mag = this.length();
 
-        return new Vector(this.x / mag, this.y / mag, this.z / mag);
+        return new Vector(this.x / mag, this.y / mag, this.z / mag, null);
     }
 
 
@@ -45,19 +49,19 @@ public class Vector extends VectorAbstract{
 
     @Override
     public VectorAbstract add(VectorAbstract v2) {
-        return new Vector(this.x + v2.x, this.y + v2.y, this.z + v2.z);
+        return new Vector(this.x + v2.x, this.y + v2.y, this.z + v2.z, null);
     }
 
 
     @Override
     public VectorAbstract sub(VectorAbstract v2) {
-        return new Vector(this.x - v2.x, this.y - v2.y, this.z - v2.z);
+        return new Vector(this.x - v2.x, this.y - v2.y, this.z - v2.z, null);
     }
 
 
     @Override
     public VectorAbstract mult(double scale) {
-        return new Vector(this.x * scale, this.y * scale, this.z * scale);
+        return new Vector(this.x * scale, this.y * scale, this.z * scale, null);
     }
     
 }
