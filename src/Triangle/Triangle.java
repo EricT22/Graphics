@@ -2,7 +2,9 @@ package Triangle;
 
 import Vector.*;
 import Line.*;
+import Matrix.*;
 import Color.*;
+import Affine.*;
 
 public class Triangle extends TriangleAbstract {
 
@@ -80,6 +82,169 @@ public class Triangle extends TriangleAbstract {
         return sides[0].cross(sides[1]);
     }
 
+    @Override
+    public TriangleAbstract rotateX(double theta, VectorAbstract fixedpoint, TriangleAbstract data) {
+        AffineTransformationAbstract a = new AffineTransformation();
+
+        VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
+        VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+
+        VectorAbstract[] vertices = data.getVertices();
+
+        double[][] points = {{vertices[0].getX(), vertices[0].getY(), vertices[0].getZ(), 1.0},
+                             {vertices[1].getX(), vertices[1].getY(), vertices[1].getZ(), 1.0},
+                             {vertices[2].getX(), vertices[2].getY(), vertices[2].getZ(), 1.0}
+                            };
+
+        MatrixAbstract mpoints = new Matrix(points);
+
+        MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
+        MatrixAbstract rotateX = a.rotateX(theta, origin, toOrigin);
+        MatrixAbstract toFP = a.translate(fixedpoint, rotateX);
+
+        double[][] result = toFP.getMatrix();
+
+        for (int i = 0; i < vertices.length; i++){
+            vertices[i].setX(result[i][0]);
+            vertices[i].setY(result[i][1]);
+            vertices[i].setZ(result[i][2]);
+        }
+        
+        Triangle p = new Triangle(vertices[0], vertices[1], vertices[2]);
+
+        return p;
+    }
+
+
+    @Override
+    public TriangleAbstract rotateY(double theta, VectorAbstract fixedpoint, TriangleAbstract data) {
+        AffineTransformationAbstract a = new AffineTransformation();
+
+        VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
+        VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+
+        VectorAbstract[] vertices = data.getVertices();
+
+        double[][] points = {{vertices[0].getX(), vertices[0].getY(), vertices[0].getZ(), 1.0},
+                             {vertices[1].getX(), vertices[1].getY(), vertices[1].getZ(), 1.0},
+                             {vertices[2].getX(), vertices[2].getY(), vertices[2].getZ(), 1.0}
+                            };
+
+        MatrixAbstract mpoints = new Matrix(points);
+
+        MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
+        MatrixAbstract rotateY = a.rotateY(theta, origin, toOrigin);
+        MatrixAbstract toFP = a.translate(fixedpoint, rotateY);
+        
+        double[][] result = toFP.getMatrix();
+
+        for (int i = 0; i < vertices.length; i++){
+            vertices[i].setX(result[i][0]);
+            vertices[i].setY(result[i][1]);
+            vertices[i].setZ(result[i][2]);
+        }
+        
+        Triangle p = new Triangle(vertices[0], vertices[1], vertices[2]);
+
+        return p;
+    }
+
+
+    @Override
+    public TriangleAbstract rotateZ(double theta, VectorAbstract fixedpoint, TriangleAbstract data) {
+        AffineTransformationAbstract a = new AffineTransformation();
+
+        VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
+        VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+
+        VectorAbstract[] vertices = data.getVertices();
+
+        double[][] points = {{vertices[0].getX(), vertices[0].getY(), vertices[0].getZ(), 1.0},
+                             {vertices[1].getX(), vertices[1].getY(), vertices[1].getZ(), 1.0},
+                             {vertices[2].getX(), vertices[2].getY(), vertices[2].getZ(), 1.0}
+                            };
+
+        MatrixAbstract mpoints = new Matrix(points);
+
+        MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
+        MatrixAbstract rotateZ = a.rotateZ(theta, origin, toOrigin);
+        MatrixAbstract toFP = a.translate(fixedpoint, rotateZ);
+
+        double[][] result = toFP.getMatrix();
+
+        for (int i = 0; i < vertices.length; i++){
+            vertices[i].setX(result[i][0]);
+            vertices[i].setY(result[i][1]);
+            vertices[i].setZ(result[i][2]);
+        }
+        
+        Triangle p = new Triangle(vertices[0], vertices[1], vertices[2]);
+
+        return p;
+    }
+
+
+    @Override
+    public TriangleAbstract translate(VectorAbstract transvec, TriangleAbstract data) {
+        AffineTransformationAbstract a = new AffineTransformation();
+
+        VectorAbstract[] vertices = data.getVertices();
+
+        double[][] points = {{vertices[0].getX(), vertices[0].getY(), vertices[0].getZ(), 1.0},
+                             {vertices[1].getX(), vertices[1].getY(), vertices[1].getZ(), 1.0},
+                             {vertices[2].getX(), vertices[2].getY(), vertices[2].getZ(), 1.0}
+                            };
+
+        MatrixAbstract mpoints = new Matrix(points);
+
+        MatrixAbstract mtranslation = a.translate(transvec, mpoints);
+
+        double[][] result = mtranslation.getMatrix();
+
+        for (int i = 0; i < vertices.length; i++){
+            vertices[i].setX(result[i][0]);
+            vertices[i].setY(result[i][1]);
+            vertices[i].setZ(result[i][2]);
+        }
+        
+        Triangle p = new Triangle(vertices[0], vertices[1], vertices[2]);
+
+        return p;
+    }
+
+
+    @Override
+    public TriangleAbstract scale(VectorAbstract factor, VectorAbstract fixedpoint, TriangleAbstract data) {
+        AffineTransformationAbstract a = new AffineTransformation();
+
+        VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
+        VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+
+        VectorAbstract[] vertices = data.getVertices().clone();
+
+        double[][] points = {{vertices[0].getX(), vertices[0].getY(), vertices[0].getZ(), 1.0},
+                             {vertices[1].getX(), vertices[1].getY(), vertices[1].getZ(), 1.0},
+                             {vertices[2].getX(), vertices[2].getY(), vertices[2].getZ(), 1.0}
+                            };
+
+        MatrixAbstract mpoints = new Matrix(points);
+
+        MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
+        MatrixAbstract scale = a.scale(factor, origin, toOrigin);
+        MatrixAbstract toFP = a.translate(fixedpoint, scale);
+
+        double[][] result = toFP.getMatrix();
+
+        for (int i = 0; i < vertices.length; i++){
+            vertices[i].setX(result[i][0]);
+            vertices[i].setY(result[i][1]);
+            vertices[i].setZ(result[i][2]);
+        }
+        
+        Triangle p = new Triangle(vertices[0], vertices[1], vertices[2]);
+
+        return p;
+    }
 
     @Override
     public void render(int[][][] framebuffer, boolean shownormal) {
