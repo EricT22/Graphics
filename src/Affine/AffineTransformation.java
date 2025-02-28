@@ -12,6 +12,7 @@ public class AffineTransformation extends AffineTransformationAbstract{
     //       {x2, y2, z3},
     //       ...
     //      }
+    //      And will also return the data in this form
 
     @Override
     public MatrixAbstract rotateX(double theta, VectorAbstract fixedpoint, MatrixAbstract data) {
@@ -37,7 +38,7 @@ public class AffineTransformation extends AffineTransformationAbstract{
 
         MatrixAbstract t = originToFpMatrix.mult(rotateXMatrix.mult(fpToOriginMatrix));
 
-        return t.mult(data.transpose());
+        return t.mult(data.transpose()).transpose();
     }
 
     @Override
@@ -64,7 +65,7 @@ public class AffineTransformation extends AffineTransformationAbstract{
 
         MatrixAbstract t = originToFpMatrix.mult(rotateYMatrix.mult(fpToOriginMatrix));
 
-        return t.mult(data.transpose());
+        return t.mult(data.transpose()).transpose();
     }
 
     @Override
@@ -91,7 +92,7 @@ public class AffineTransformation extends AffineTransformationAbstract{
 
         MatrixAbstract t = originToFpMatrix.mult(rotateZMatrix.mult(fpToOriginMatrix));
 
-        return t.mult(data.transpose());
+        return t.mult(data.transpose()).transpose();
     }
 
     @Override
@@ -103,7 +104,7 @@ public class AffineTransformation extends AffineTransformationAbstract{
 
         Matrix t = new Matrix(tarr);
 
-        return t.mult(data.transpose());
+        return t.mult(data.transpose()).transpose();
     }
 
     @Override
@@ -130,7 +131,6 @@ public class AffineTransformation extends AffineTransformationAbstract{
 
         MatrixAbstract t = originToFpMatrix.mult(scaleMatrix.mult(fpToOriginMatrix));
 
-        return t.mult(data.transpose());
-    }
-    
+        return t.mult(data.transpose()).transpose();
+    }    
 }
