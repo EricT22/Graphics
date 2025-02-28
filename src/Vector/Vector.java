@@ -63,5 +63,9 @@ public class Vector extends VectorAbstract{
     public VectorAbstract mult(double scale) {
         return new Vector(this.x * scale, this.y * scale, this.z * scale, this.color);
     }
+
+    public VectorAbstract copy(){
+        return new Vector(x, y, z, new Color(color.getR(), color.getG(), color.getB()));
+    }
     
 }

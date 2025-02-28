@@ -270,5 +270,15 @@ public class Triangle extends TriangleAbstract {
                          framebuffer);
         }
     }
+
+    @Override
+    public VectorAbstract[] getVertices() {
+		VectorAbstract[] v = {((Vector)this.vertices[0]).copy(),
+							  ((Vector)this.vertices[1]).copy(),
+							  ((Vector)this.vertices[2]).copy()};
+
+		return v;
+	}
+	
     
 }
