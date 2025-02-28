@@ -210,7 +210,7 @@ public class Triangle extends TriangleAbstract {
 
         VectorAbstract uncentering = new Vector(-centering.getX(), -centering.getY(), -centering.getZ(), null);
 
-        VectorAbstract[] vertices = data.getVertices().clone();
+        VectorAbstract[] vertices = data.getVertices();
 
         double[][] points = {{vertices[0].getX(), vertices[0].getY(), vertices[0].getZ(), 1.0},
                              {vertices[1].getX(), vertices[1].getY(), vertices[1].getZ(), 1.0},
