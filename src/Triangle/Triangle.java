@@ -86,8 +86,16 @@ public class Triangle extends TriangleAbstract {
     public TriangleAbstract rotateX(double theta, VectorAbstract fixedpoint, TriangleAbstract data) {
         AffineTransformationAbstract a = new AffineTransformation();
 
-        VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
-        VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+        // VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
+        // VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+
+        VectorAbstract center = data.getCenter();
+        VectorAbstract centering = new Vector(fixedpoint.getX() - center.getX(),
+                                              fixedpoint.getY() - center.getY(),
+                                              fixedpoint.getZ() - center.getZ(),
+                                              null);
+
+        VectorAbstract uncentering = new Vector(-centering.getX(), -centering.getY(), -centering.getZ(), null);
 
         VectorAbstract[] vertices = data.getVertices();
 
@@ -98,11 +106,17 @@ public class Triangle extends TriangleAbstract {
 
         MatrixAbstract mpoints = new Matrix(points);
 
-        MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
-        MatrixAbstract rotateX = a.rotateX(theta, origin, toOrigin);
-        MatrixAbstract toFP = a.translate(fixedpoint, rotateX);
+        // MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
+        // MatrixAbstract rotateX = a.rotateX(theta, origin, toOrigin);
+        // MatrixAbstract toFP = a.translate(fixedpoint, rotateX);
 
-        double[][] result = toFP.getMatrix();
+        // double[][] result = toFP.getMatrix();
+
+        MatrixAbstract toFP = a.translate(centering, mpoints);
+        MatrixAbstract rotateX = a.rotateX(theta, fixedpoint, toFP);
+        MatrixAbstract toOriginalLocation = a.translate(uncentering, rotateX);
+
+        double[][] result = toOriginalLocation.getMatrix();
 
         for (int i = 0; i < vertices.length; i++){
             vertices[i].setX(result[i][0]);
@@ -120,8 +134,16 @@ public class Triangle extends TriangleAbstract {
     public TriangleAbstract rotateY(double theta, VectorAbstract fixedpoint, TriangleAbstract data) {
         AffineTransformationAbstract a = new AffineTransformation();
 
-        VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
-        VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+        // VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
+        // VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+
+        VectorAbstract center = data.getCenter();
+        VectorAbstract centering = new Vector(fixedpoint.getX() - center.getX(),
+                                              fixedpoint.getY() - center.getY(),
+                                              fixedpoint.getZ() - center.getZ(),
+                                              null);
+
+        VectorAbstract uncentering = new Vector(-centering.getX(), -centering.getY(), -centering.getZ(), null);
 
         VectorAbstract[] vertices = data.getVertices();
 
@@ -132,11 +154,17 @@ public class Triangle extends TriangleAbstract {
 
         MatrixAbstract mpoints = new Matrix(points);
 
-        MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
-        MatrixAbstract rotateY = a.rotateY(theta, origin, toOrigin);
-        MatrixAbstract toFP = a.translate(fixedpoint, rotateY);
+        // MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
+        // MatrixAbstract rotateY = a.rotateY(theta, origin, toOrigin);
+        // MatrixAbstract toFP = a.translate(fixedpoint, rotateY);
         
-        double[][] result = toFP.getMatrix();
+        // double[][] result = toFP.getMatrix();
+
+        MatrixAbstract toFP = a.translate(centering, mpoints);
+        MatrixAbstract rotateY = a.rotateY(theta, fixedpoint, toFP);
+        MatrixAbstract toOriginalLocation = a.translate(uncentering, rotateY);
+
+        double[][] result = toOriginalLocation.getMatrix();
 
         for (int i = 0; i < vertices.length; i++){
             vertices[i].setX(result[i][0]);
@@ -154,8 +182,16 @@ public class Triangle extends TriangleAbstract {
     public TriangleAbstract rotateZ(double theta, VectorAbstract fixedpoint, TriangleAbstract data) {
         AffineTransformationAbstract a = new AffineTransformation();
 
-        VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
-        VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+        // VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
+        // VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+
+        VectorAbstract center = data.getCenter();
+        VectorAbstract centering = new Vector(fixedpoint.getX() - center.getX(),
+                                              fixedpoint.getY() - center.getY(),
+                                              fixedpoint.getZ() - center.getZ(),
+                                              null);
+
+        VectorAbstract uncentering = new Vector(-centering.getX(), -centering.getY(), -centering.getZ(), null);
 
         VectorAbstract[] vertices = data.getVertices();
 
@@ -166,11 +202,17 @@ public class Triangle extends TriangleAbstract {
 
         MatrixAbstract mpoints = new Matrix(points);
 
-        MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
-        MatrixAbstract rotateZ = a.rotateZ(theta, origin, toOrigin);
-        MatrixAbstract toFP = a.translate(fixedpoint, rotateZ);
+        // MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
+        // MatrixAbstract rotateZ = a.rotateZ(theta, origin, toOrigin);
+        // MatrixAbstract toFP = a.translate(fixedpoint, rotateZ);
 
-        double[][] result = toFP.getMatrix();
+        // double[][] result = toFP.getMatrix();
+
+        MatrixAbstract toFP = a.translate(centering, mpoints);
+        MatrixAbstract rotateZ = a.rotateZ(theta, fixedpoint, toFP);
+        MatrixAbstract toOriginalLocation = a.translate(uncentering, rotateZ);
+
+        double[][] result = toOriginalLocation.getMatrix();
 
         for (int i = 0; i < vertices.length; i++){
             vertices[i].setX(result[i][0]);
@@ -217,8 +259,16 @@ public class Triangle extends TriangleAbstract {
     public TriangleAbstract scale(VectorAbstract factor, VectorAbstract fixedpoint, TriangleAbstract data) {
         AffineTransformationAbstract a = new AffineTransformation();
 
-        VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
-        VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+        // VectorAbstract negFixedPoint = new Vector(-fixedpoint.getX(), -fixedpoint.getY(), -fixedpoint.getZ(), null);
+        // VectorAbstract origin = new Vector(0.0, 0.0, 0.0, null);
+
+        VectorAbstract center = data.getCenter();
+        VectorAbstract centering = new Vector(fixedpoint.getX() - center.getX(),
+                                              fixedpoint.getY() - center.getY(),
+                                              fixedpoint.getZ() - center.getZ(),
+                                              null);
+
+        VectorAbstract uncentering = new Vector(-centering.getX(), -centering.getY(), -centering.getZ(), null);
 
         VectorAbstract[] vertices = data.getVertices().clone();
 
@@ -229,11 +279,17 @@ public class Triangle extends TriangleAbstract {
 
         MatrixAbstract mpoints = new Matrix(points);
 
-        MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
-        MatrixAbstract scale = a.scale(factor, origin, toOrigin);
-        MatrixAbstract toFP = a.translate(fixedpoint, scale);
+        // MatrixAbstract toOrigin = a.translate(negFixedPoint, mpoints);
+        // MatrixAbstract scale = a.scale(factor, origin, toOrigin);
+        // MatrixAbstract toFP = a.translate(fixedpoint, scale);
 
-        double[][] result = toFP.getMatrix();
+        // double[][] result = toFP.getMatrix();
+
+        MatrixAbstract toFP = a.translate(centering, mpoints);
+        MatrixAbstract scale = a.scale(factor, fixedpoint, toFP);
+        MatrixAbstract toOriginalLocation = a.translate(uncentering, scale);
+
+        double[][] result = toOriginalLocation.getMatrix();
 
         for (int i = 0; i < vertices.length; i++){
             vertices[i].setX(result[i][0]);
