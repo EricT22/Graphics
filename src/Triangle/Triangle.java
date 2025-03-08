@@ -83,6 +83,34 @@ public class Triangle extends TriangleAbstract {
     }
 
     @Override
+    public TriangleAbstract rotateAxis(VectorAbstract axis, VectorAbstract fixedpoint, double arads, TriangleAbstract data){
+        AffineTransformationAbstract a = new AffineTransformation();
+
+        VectorAbstract[] vertices = data.getVertices();
+
+        double[][] points = {{vertices[0].getX(), vertices[0].getY(), vertices[0].getZ(), 1.0},
+                             {vertices[1].getX(), vertices[1].getY(), vertices[1].getZ(), 1.0},
+                             {vertices[2].getX(), vertices[2].getY(), vertices[2].getZ(), 1.0}
+                            };
+
+        MatrixAbstract mpoints = new Matrix(points);
+
+        MatrixAbstract rotate = a.rotateAxis(axis, fixedpoint, arads, mpoints);
+
+        double[][] result = rotate.getMatrix();
+
+        for (int i = 0; i < vertices.length; i++){
+            vertices[i].setX(result[i][0]);
+            vertices[i].setY(result[i][1]);
+            vertices[i].setZ(result[i][2]);
+        }
+        
+        Triangle p = new Triangle(vertices[0], vertices[1], vertices[2]);
+
+        return p;
+    }
+
+    @Override
     public TriangleAbstract rotateX(double theta, VectorAbstract fixedpoint, TriangleAbstract data) {
         AffineTransformationAbstract a = new AffineTransformation();
 
