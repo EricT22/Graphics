@@ -94,6 +94,17 @@ public abstract class TriangleAbstract {
 	public abstract TriangleAbstract rotateZ(double theta, VectorAbstract fixedpoint, TriangleAbstract data);
 
 	/**
+	 * Rotates a triangle about an arbitrary axis
+	 * @param axis axis of rotation
+	 * @param fixedpoint fixed point for rotation
+	 * @param arads angle of rotation in radians
+	 * @param data data points to be rotated
+	 * @return
+	 */
+	public abstract TriangleAbstract rotateAxis(VectorAbstract axis, VectorAbstract fixedpoint, double arads,
+			TriangleAbstract data);
+
+	/**
 	 * Translate triangle data
 	 * @param trans vector of translation amounts
 	 * @param data data points to be translated

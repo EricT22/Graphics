@@ -53,5 +53,14 @@ public abstract class AffineTransformationAbstract {
 	 */
 	public abstract MatrixAbstract scale (VectorAbstract factor, VectorAbstract fixedpoint, MatrixAbstract data);
 
+	/**
+	 * Rotate matrix about an arbitrary axis
+	 * @param axis Axis of rotation
+	 * @param fixedpoint Fixed point for the rotation
+	 * @param arads Angle of rotation in radians
+	 * @param data data points to be rotated
+	 * @return
+	 */
+	public abstract MatrixAbstract rotateAxis(VectorAbstract axis, VectorAbstract fixedpoint, double arads, MatrixAbstract data);
 
 }
