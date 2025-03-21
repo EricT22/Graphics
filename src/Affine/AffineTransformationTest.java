@@ -4,6 +4,7 @@ import Common.ReadWriteImage;
 import Vector.*;
 import Triangle.*;
 import Color.*;
+import Shader.*;
 
 public class AffineTransformationTest {
 
@@ -11,6 +12,8 @@ public class AffineTransformationTest {
 		int framebuffer[][][] = new int[3][256][256];
 		VectorAbstract v0, v1, v2;
 		TriangleAbstract t;
+
+		VectorAbstract viewpoint = new Vector(0, 0, -1, new Color(0, 0, 0));
 		try {
 			int scalefactor = 100;
 			VectorAbstract offset = new Vector(78, 78, 78, new Color(1.0, 0.0, 0.0));
@@ -25,33 +28,33 @@ public class AffineTransformationTest {
 			v2 = v2.mult(scalefactor);
 			v2 = v2.add(offset);
 			t = new Triangle(v0, v1, v2);
-			t.render(framebuffer,  true);
+			t.render(framebuffer,  true, Shader.FILLSTYLE.NONE, viewpoint);
 			double theta = 45;
 			TriangleAbstract tx;
 
 			framebuffer = new int[3][256][256];
 			tx = t.translate(new Vector(10, 15, 20, null), t);
-			tx.render(framebuffer, true);
+			tx.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			ReadWriteImage.writeImage(framebuffer, "translate.png");
 
 			framebuffer = new int[3][256][256];
 			tx = t.rotateX(Math.toRadians(theta), t.getCenter(), t);
-			tx.render(framebuffer, true);
+			tx.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			ReadWriteImage.writeImage(framebuffer, "rotateX.png");
 
 			framebuffer = new int[3][256][256];
 			tx = t.rotateY(Math.toRadians(theta), t.getCenter(), t);
-			tx.render(framebuffer, true);
+			tx.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			ReadWriteImage.writeImage(framebuffer, "rotateY.png");
 
 			framebuffer = new int[3][256][256];
 			tx = t.rotateZ(Math.toRadians(theta), t.getCenter(), t);
-			tx.render(framebuffer, true);
+			tx.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			ReadWriteImage.writeImage(framebuffer, "rotateZ.png");
 			
 			framebuffer = new int[3][256][256];
 			tx = t.scale(new Vector(1, 2, 3, null),  t.getCenter(), t);
-			tx.render(framebuffer, true);
+			tx.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			ReadWriteImage.writeImage(framebuffer, "scale.png");
 			
 		}

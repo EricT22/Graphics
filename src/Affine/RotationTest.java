@@ -4,6 +4,7 @@ import Common.ReadWriteImage;
 import Vector.*;
 import Triangle.*;
 import Color.*;
+import Shader.*;
 
 public class RotationTest {
 
@@ -11,6 +12,7 @@ public class RotationTest {
 		int framebuffer[][][] = new int[3][256][256];
 		VectorAbstract v0, v1, v2;
 		TriangleAbstract t;
+		VectorAbstract viewpoint = new Vector(0, 0, -1, new Color(0, 0, 0));
 		try {
 			int scalefactor = 100;
 			VectorAbstract offset = new Vector(78, 78, 78, new Color(1.0, 0.0, 0.0));
@@ -31,30 +33,30 @@ public class RotationTest {
 			VectorAbstract rotationaxis;
 			
 			rotationaxis = new Vector(1, 0, 0, null);
-			t.render(framebuffer, true);
+			t.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			tx = t.rotateAxis(rotationaxis, t.getCenter(), Math.toRadians(theta), t);
-			tx.render(framebuffer, true);
+			tx.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			ReadWriteImage.writeImage(framebuffer, "rotateX.png");
 
 			framebuffer = new int[3][256][256];
 			rotationaxis = new Vector(0, 1, 0, null);
-			t.render(framebuffer, true);
+			t.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			tx = t.rotateAxis(rotationaxis, t.getCenter(), Math.toRadians(theta), t);
-			tx.render(framebuffer, true);
+			tx.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			ReadWriteImage.writeImage(framebuffer, "rotateY.png");
 
 			framebuffer = new int[3][256][256];
 			rotationaxis = new Vector(0, 0, 1, null);
-			t.render(framebuffer, true);
+			t.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			tx = t.rotateAxis(rotationaxis, t.getCenter(), Math.toRadians(theta), t);
-			tx.render(framebuffer, true);
+			tx.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			ReadWriteImage.writeImage(framebuffer, "rotateZ.png");
 
 			framebuffer = new int[3][256][256];
 			rotationaxis = new Vector(1, 1, 1, null);
-			t.render(framebuffer, true);
+			t.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			tx = t.rotateAxis(rotationaxis, t.getCenter(), Math.toRadians(theta), t);
-			tx.render(framebuffer, true);
+			tx.render(framebuffer, true, Shader.FILLSTYLE.NONE, viewpoint);
 			ReadWriteImage.writeImage(framebuffer, "rotateArbit.png");
 
 		
