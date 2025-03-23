@@ -83,13 +83,13 @@ public class ScanConvertLine extends ScanConvertAbstract{
         try {
             if (Math.abs(y1 - y0) < Math.abs(x1 - x0)){
                 if (x0 > x1) {
-                    bresenhamSlopeLT45(x1, y1, x0, y0, c0, c1, framebuffer);
+                    bresenhamSlopeLT45(x1, y1, x0, y0, c1, c0, framebuffer);
                 } else {
                     bresenhamSlopeLT45(x0, y0, x1, y1, c0, c1, framebuffer);
                 }
             } else {
                 if (y0 > y1) {
-                    bresenhamSlopeGTE45(x1, y1, x0, y0, c0, c1, framebuffer);
+                    bresenhamSlopeGTE45(x1, y1, x0, y0, c1, c0, framebuffer);
                 } else {
                     bresenhamSlopeGTE45(x0, y0, x1, y1, c0, c1, framebuffer);
                 }
