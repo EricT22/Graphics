@@ -1,6 +1,7 @@
 package Triangle;
 
 import Vector.VectorAbstract;
+import Shader.*;
 
 /**
  * Abstract class for creating a Triangle class
@@ -40,9 +41,11 @@ public abstract class TriangleAbstract {
 	 * Renders the triangle to the frame buffer
 	 * @param framebuffer frame buffer to receive render
 	 * @param shownormal show surface normal or not
+	 * @param fill FILLSTYLE.SHADE for a shaded fill, FILLSTYLE.FILL for a solid fill, FILLSTYLE.NONE for no fill
+	 * @param viewpoint Location from which the triangle is being viewed (for visibility determination)
 	 */
-	public abstract void render(int[][][] framebuffer, boolean shownormal);
-	
+	public abstract void render(int[][][] framebuffer, boolean shownormal, Shader.FILLSTYLE fill, VectorAbstract viewpoint);
+
 	/**
 	 * Default constructor for use by the extending class only (can't construct an abstract class)
 	 */
@@ -120,6 +123,13 @@ public abstract class TriangleAbstract {
 	 * @return scaled data
 	 */
 	public abstract TriangleAbstract scale (VectorAbstract factor, VectorAbstract fixedpoint, TriangleAbstract data);
+
+	/**
+	 * Determines triange visiblity based on viewpoint
+	 * @param viewpoint the viewpoint vector
+	 * @return true if visible, false otherwise
+	 */
+	public abstract boolean isVisible(VectorAbstract viewpoint);
 
 	@Override
 	public String toString() {
