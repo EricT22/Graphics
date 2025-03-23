@@ -113,6 +113,10 @@ public class ScanConvertLine extends ScanConvertAbstract{
         }
         int d = (2 * dy) + dx;
 
+        if (dy == 0) {
+            d = -1;
+        }
+
         for (int x = x0; x <= x1; x++){
             try {    
                 double multiplier = (double)(x - x0) / (double)(x1 - x0);
