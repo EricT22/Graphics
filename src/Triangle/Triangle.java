@@ -5,6 +5,7 @@ import Line.*;
 import Matrix.*;
 import Color.*;
 import Affine.*;
+import Shader.*;
 
 public class Triangle extends TriangleAbstract {
 
@@ -265,25 +266,38 @@ public class Triangle extends TriangleAbstract {
     }
 
     @Override
-    public void render(int[][][] framebuffer, boolean shownormal) {
+    public void render(int[][][] framebuffer, boolean shownormal, Shader.FILLSTYLE fill, VectorAbstract viewpoint) {
+        if (!isVisible(viewpoint)){
+            return;
+        }
+
         ScanConvertAbstract sc = new ScanConvertLine();
         Color white = new Color(1.0, 1.0, 1.0);
 
-        for (int i = 0; i < vertices.length; i++) {
-            try {
-                int j = i + 1;
+        if (fill == Shader.FILLSTYLE.NONE){
+            for (int i = 0; i < vertices.length; i++) {
+                try {
+                    int j = i + 1;
 
-                sc.bresenham((int)vertices[i].getX(), (int)vertices[i].getY(), 
-                             (int)vertices[j].getX(), (int)vertices[j].getY(),
-                             vertices[i].getColor(), vertices[j].getColor(), 
-                             framebuffer);        
-            } catch (IndexOutOfBoundsException e) {
-                sc.bresenham((int)vertices[i].getX(), (int)vertices[i].getY(), 
-                             (int)vertices[0].getX(), (int)vertices[0].getY(),
-                             vertices[i].getColor(), vertices[0].getColor(), 
-                             framebuffer);    
+                    sc.bresenham((int)vertices[i].getX(), (int)vertices[i].getY(), 
+                                (int)vertices[j].getX(), (int)vertices[j].getY(),
+                                vertices[i].getColor(), vertices[j].getColor(), 
+                                framebuffer);        
+                } catch (IndexOutOfBoundsException e) {
+                    sc.bresenham((int)vertices[i].getX(), (int)vertices[i].getY(), 
+                                (int)vertices[0].getX(), (int)vertices[0].getY(),
+                                vertices[i].getColor(), vertices[0].getColor(), 
+                                framebuffer);    
+                }
             }
+        } else if (fill == Shader.FILLSTYLE.FILL){
+            Shader sh = new Shader();
+            sh.solidFill(this, framebuffer);
+        } else if (fill == Shader.FILLSTYLE.SHADE){
+            Shader sh = new Shader();
+            sh.shadeFill(this, framebuffer);
         }
+
 
         if (shownormal) {
             VectorAbstract normal = getNormal().unit().mult(20);
@@ -307,6 +321,15 @@ public class Triangle extends TriangleAbstract {
 
 		return v;
 	}
+
+
+    @Override
+    public boolean isVisible(VectorAbstract viewpoint) {
+        VectorAbstract normal = getNormal().unit();
+        VectorAbstract vu = viewpoint.unit();
+
+        return (Math.toDegrees(vu.angleBetween(normal)) >= 90);
+    }
 	
     
 }

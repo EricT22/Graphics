@@ -34,7 +34,7 @@ public class Shader extends ShaderAbstract{
         // fill on shadebuffer
         for (int i = 0; i < sb[0].length; i++){
             int left = 0;
-            int right = sb[0][0].length;
+            int right = sb[0][0].length - 1;
 
             try {
                 while (sb[0][i][left] == -1){
@@ -71,19 +71,19 @@ public class Shader extends ShaderAbstract{
                 sc.bresenham((int)vertices[i].getX(), (int)vertices[i].getY(), 
                             (int)vertices[j].getX(), (int)vertices[j].getY(),
                             vertices[i].getColor(), vertices[j].getColor(), 
-                            framebuffer);        
+                            sb);        
             } catch (IndexOutOfBoundsException e) {
                 sc.bresenham((int)vertices[i].getX(), (int)vertices[i].getY(), 
                             (int)vertices[0].getX(), (int)vertices[0].getY(),
                             vertices[i].getColor(), vertices[0].getColor(), 
-                            framebuffer);    
+                            sb);    
             }
         }
 
         // fill on shadebuffer
         for (int i = 0; i < sb[0].length; i++){
             int left = 0;
-            int right = sb[0][0].length;
+            int right = sb[0][0].length - 1;
 
             try {
                 while (sb[0][i][left] == -1){
@@ -100,8 +100,8 @@ public class Shader extends ShaderAbstract{
             if (left > right) { continue; }
 
             sc.bresenham(left, i, right, i, 
-                        new Color(sb[0][i][left], sb[1][i][left], sb[2][i][left]), 
-                        new Color(sb[0][i][right], sb[1][i][right], sb[2][i][right]), 
+                        new Color((double)sb[0][i][left] / 255.0,(double)sb[1][i][left] / 255.0, (double)sb[2][i][left] / 255.0), 
+                        new Color((double)sb[0][i][right] / 255.0, (double)sb[1][i][right] / 255.0, (double)sb[2][i][right] / 255.0), 
                         sb);
         }
 
