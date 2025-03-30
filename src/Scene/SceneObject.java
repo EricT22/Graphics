@@ -125,6 +125,23 @@ public class SceneObject extends SceneObjectAbstract {
 		return result;
 	}
 
+
+	@Override
+	public String toString(){
+		String s = "";
+		for (TriangleAbstract ta : triangles) {
+			VectorAbstract[] verts = ta.getVertices();
+			s += "Triangle:\n";
+			for (VectorAbstract va : verts) {
+				s += va + ", ";
+			}
+			s += "\n";
+		}
+
+		return s;
+	}
+
+
 	private SceneObject makeObject(String filename) throws IOException {
 		Color color = null;
 		
@@ -137,10 +154,17 @@ public class SceneObject extends SceneObjectAbstract {
 		// -- add random color to the mesh triangles
 		Random rn = new Random(42);
 		for (int i = 0; i < mesh.size(); ++i) {
+			VectorAbstract[] coloredVerts = new VectorAbstract[3];
 			color = new Color(rn.nextInt(1000) / 1000.0, rn.nextInt(100) / 100.0, rn.nextInt(10) / 10.0);
+
 			for (int j = 0; j < 3; ++j) {
-				mesh.get(i).getVertices()[j].setColor(color);
+				double x = mesh.get(i).getVertices()[j].getX();
+				double y = mesh.get(i).getVertices()[j].getY();
+				double z = mesh.get(i).getVertices()[j].getZ();
+
+				coloredVerts[j] = new Vector(x, y, z, color);
 			}
+			mesh.get(i).setVertices(coloredVerts);
 			so.addTriangle(mesh.get(i));
 		}
 
@@ -154,6 +178,8 @@ public class SceneObject extends SceneObjectAbstract {
 
 		// -- scale all vertices to create unit extents
 		for (int i = 0; i < mesh.size(); ++i) {
+			VectorAbstract[] uVerts = new VectorAbstract[3];
+
 			for (int j = 0; j < 3; ++j) {
 				double x = mesh.get(i).getVertices()[j].getX();
 				double y = mesh.get(i).getVertices()[j].getY();
@@ -161,12 +187,12 @@ public class SceneObject extends SceneObjectAbstract {
 				x /= xrange;
 				y /= yrange;
 				z /= zrange;
-				mesh.get(i).getVertices()[j].setX(x);
-				mesh.get(i).getVertices()[j].setY(y);
-				mesh.get(i).getVertices()[j].setZ(z);
+
+				uVerts[j] = new Vector(x, y, z, mesh.get(i).getVertices()[j].getColor());
 			}
+			mesh.get(i).setVertices(uVerts);
 		}
-		
+
 		return so;
 	}
 
