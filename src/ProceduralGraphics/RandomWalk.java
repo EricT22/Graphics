@@ -44,6 +44,7 @@ public class RandomWalk {
                 VectorAbstract end = path.get(i);
 
                 s.bresenham((int)start.getX() + centerx, (int)start.getY() + centery, (int)end.getX() + centerx, (int)end.getY() + centery, color, color, framebuffer);                    
+                start = end;
             }
         }
         catch(ArrayIndexOutOfBoundsException e){}
