@@ -1,6 +1,9 @@
 package Line;
 
+import java.util.ArrayList;
+
 import Color.*;
+import Vector.*;
 
 public class ScanConvertLine extends ScanConvertAbstract{
 
@@ -201,6 +204,91 @@ public class ScanConvertLine extends ScanConvertAbstract{
         b = (b > 1.0) ? 1.0 : (b < 0.0) ? 0.0 : b;
 
         return new Color(r, g, b);
+    }
+    
+
+    // NOTE: List bresenham below
+    @Override
+    public void bresenham(int x0, int y0, int x1, int y1, ColorAbstract c0, ColorAbstract c1, ArrayList<VectorAbstract> points) {
+        try {
+            if (Math.abs(y1 - y0) < Math.abs(x1 - x0)){
+                if (x0 > x1) {
+                    bresenhamListSlopeLT45(x1, y1, x0, y0, c1, c0, points);
+                } else {
+                    bresenhamListSlopeLT45(x0, y0, x1, y1, c0, c1, points);
+                }
+            } else {
+                if (y0 > y1) {
+                    bresenhamListSlopeGTE45(x1, y1, x0, y0, c1, c0, points);
+                } else {
+                    bresenhamListSlopeGTE45(x0, y0, x1, y1, c0, c1, points);
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e){
+
+        }
+    }
+
+    // -1 < m < 1
+    private void bresenhamListSlopeLT45(int x0, int y0, int x1, int y1, ColorAbstract c0, ColorAbstract c1, ArrayList<VectorAbstract> points){
+        int dx = x1 - x0;
+        int dy = y1 - y0;
+        int y = y0;
+        
+        int inc = 1;
+        if (dy < 0){
+            inc = -1;
+            dy = -dy;
+        }
+        int d = (2 * dy) + dx;
+
+        if (dy == 0) {
+            d = -1;
+        }
+
+        for (int x = x0; x <= x1; x++){
+            try {    
+                double multiplier = (double)(x - x0) / (double)(x1 - x0);
+
+                points.add(new Vector((double)x, (double)y, 0.0, (Color)linearlyInterpolate(c0, c1, multiplier)));
+            } catch (ArrayIndexOutOfBoundsException e) { }
+
+            if (d > 0) {
+                y += inc;
+                d += (2 * (dy - dx));
+            } else {
+                d += (2 * dy);
+            }
+        }
+    }
+
+    // m >=1 || m <= -1
+    private void bresenhamListSlopeGTE45(int x0, int y0, int x1, int y1, ColorAbstract c0, ColorAbstract c1, ArrayList<VectorAbstract> points) {
+        int dx = x1 - x0;
+        int dy = y1 - y0;
+        int x = x0;
+        
+        int inc = 1;
+        if (dx < 0){
+            inc = -1;
+            dx = -dx;
+        }
+        int d = (2 * dx) + dy;
+
+        for (int y = y0; y <= y1; y++){
+            try {    
+                double multiplier = (double)(y - y0) / (double)(y1 - y0);
+
+                points.add(new Vector((double)x, (double)y, 0.0, (Color)linearlyInterpolate(c0, c1, multiplier)));
+            } catch (ArrayIndexOutOfBoundsException e) { }
+
+            if (d > 0) {
+                x += inc;
+                d += (2 * (dx - dy));
+            } else {
+                d += (2 * dx);
+            }
+        }
     }
     
 }

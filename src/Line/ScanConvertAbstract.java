@@ -44,6 +44,6 @@ public abstract class ScanConvertAbstract {
 	 * @param c0 starting color
 	 * @param c1 ending color
 	 */
-	public abstract void bresenham(int x0, int y0, int x1, int y1, Color c0, Color c1, ArrayList<VectorAbstract> points);
+	public abstract void bresenham(int x0, int y0, int x1, int y1, ColorAbstract c0, ColorAbstract c1, ArrayList<VectorAbstract> points);
 
 }
