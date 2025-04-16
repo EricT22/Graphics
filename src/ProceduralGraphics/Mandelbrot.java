@@ -96,7 +96,6 @@ public class Mandelbrot {
         }
     }
 
-    // make a LUT with a line or with a curve b/c it seems cool
 
     public static int[][] bezierLUT(){
         int[][] LUT = new int[256][3];
