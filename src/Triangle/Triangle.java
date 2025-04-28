@@ -231,13 +231,14 @@ public class Triangle extends TriangleAbstract {
     public TriangleAbstract scale(VectorAbstract factor, VectorAbstract fixedpoint, TriangleAbstract data) {
         AffineTransformationAbstract a = new AffineTransformation();
 
-        VectorAbstract center = data.getCenter();
-        VectorAbstract centering = new Vector(fixedpoint.getX() - center.getX(),
-                                              fixedpoint.getY() - center.getY(),
-                                              fixedpoint.getZ() - center.getZ(),
-                                              null);
+        // VectorAbstract center = data.getCenter();
+        // VectorAbstract centering = new Vector(fixedpoint.getX() - center.getX(),
+        //                                       fixedpoint.getY() - center.getY(),
+        //                                       fixedpoint.getZ() - center.getZ(),
+        //                                       null);
 
-        VectorAbstract uncentering = new Vector(-centering.getX(), -centering.getY(), -centering.getZ(), null);
+
+        // VectorAbstract uncentering = new Vector(-centering.getX(), -centering.getY(), -centering.getZ(), null);
 
         VectorAbstract[] vertices = data.getVertices();
 
@@ -248,11 +249,14 @@ public class Triangle extends TriangleAbstract {
 
         MatrixAbstract mpoints = new Matrix(points);
 
-        MatrixAbstract toFP = a.translate(centering, mpoints);
-        MatrixAbstract scale = a.scale(factor, fixedpoint, toFP);
-        MatrixAbstract toOriginalLocation = a.translate(uncentering, scale);
+        // MatrixAbstract toFP = a.translate(centering, mpoints);
+        // MatrixAbstract scale = a.scale(factor, fixedpoint, toFP);
+        // MatrixAbstract toOriginalLocation = a.translate(uncentering, scale);
 
-        double[][] result = toOriginalLocation.getMatrix();
+        // double[][] result = toOriginalLocation.getMatrix();
+
+        MatrixAbstract scale = a.scale(factor, fixedpoint, mpoints);
+        double[][] result = scale.getMatrix();
 
         for (int i = 0; i < vertices.length; i++){
             vertices[i].setX(result[i][0]);

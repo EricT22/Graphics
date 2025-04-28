@@ -59,7 +59,7 @@ public class SceneObject extends SceneObjectAbstract {
 	
 	@Override
 	public void render(int[][][] framebuffer, boolean shownormals, ShaderAbstract.FILLSTYLE fill, VectorAbstract viewpoint) {
-		
+		// sort based on zcenter
 		for (TriangleAbstract ta : triangles) {
 			if (ta.isVisible(viewpoint)) {
 				ta.render(framebuffer, shownormals,  fill, viewpoint);
@@ -73,7 +73,7 @@ public class SceneObject extends SceneObjectAbstract {
 		VectorAbstract center = this.getCenter();
 		for (int i = 0; i < triangles.size(); ++i) {
 			TriangleAbstract ta = triangles.get(i);
-			ta = ta.scale(center, scale, ta);
+			ta = ta.scale(scale, center, ta);
 			triangles.set(i, ta);			
 		}
 	}
