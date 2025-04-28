@@ -46,7 +46,7 @@ public abstract class Curve {
         ScanConvertLine s = new ScanConvertLine();
         double[] oldPoint = {p0.getX(), p0.getY(), p0.getZ()};
 
-        for (double u = 0.0; u < 1.0 + PRECISION; u += 0.025){
+        for (double u = 0.0; u < 1.0 + PRECISION; u += 0.001){
             double[] newPoint = generatePoint(u);
 
             s.bresenham((int)oldPoint[0], (int)oldPoint[1], (int)newPoint[0], (int)newPoint[1], c, c, points);
