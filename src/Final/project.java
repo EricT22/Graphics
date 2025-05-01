@@ -158,22 +158,10 @@ public class project {
 
                     if (i % 25 == 0){
                         try {
-                            String filename = "project";
-
-                            if (counter >= 1000){
-                                filename += counter;
-                            } else if (counter >= 100){
-                                filename += "0" + counter;
-                            } else if (counter >= 10) {
-                                filename += "00" + counter;
-                            } else {
-                                filename += "000" + counter;
-                            }
-
                             // only render when you need an image
                             framebuffer = new int[3][1024][1024];
                             s.render(framebuffer, false, Shader.ShaderAbstract.FILLSTYLE.FILL, viewpoint);
-                            ReadWriteImage.writeImage(framebuffer, filename + ".PNG");
+                            ReadWriteImage.writeImage(framebuffer, getFilename(counter, "project") + ".PNG");
 
                             counter++;
                         } catch (IOException e) {
@@ -186,5 +174,19 @@ public class project {
                 // stop = true; // this line is for debugging purposes only (only goes through the first bezier curve)
             }
         }
+    }
+
+    public static String getFilename(int counter, String filename){
+        if (counter >= 1000){
+            filename += counter;
+        } else if (counter >= 100){
+            filename += "0" + counter;
+        } else if (counter >= 10) {
+            filename += "00" + counter;
+        } else {
+            filename += "000" + counter;
+        }
+
+        return filename;
     }
 }
