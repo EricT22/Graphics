@@ -4,6 +4,8 @@ import Color.*;
 
 public class Vector extends VectorAbstract{
 
+    private static double PRECISION = 0.0001;
+
     public Vector(double x, double y, double z, Color c){
         super();
         
@@ -66,6 +68,16 @@ public class Vector extends VectorAbstract{
 
     public VectorAbstract copy(){
         return new Vector(x, y, z, new Color(color.getR(), color.getG(), color.getB()));
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o instanceof VectorAbstract){
+            VectorAbstract v = (VectorAbstract) o;
+
+            return (Math.abs(this.x - v.x) < PRECISION) && (Math.abs(this.y - v.y) < PRECISION) && (Math.abs(this.z - v.z) < PRECISION);
+        }
+        return false;
     }
     
 }
