@@ -174,6 +174,8 @@ public class project {
                 // stop = true; // this line is for debugging purposes only (only goes through the first bezier curve)
             }
         }
+
+        s.serialize("Graphics/res/cube.so");
     }
 
     public static String getFilename(int counter, String filename){
