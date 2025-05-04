@@ -1,13 +1,16 @@
 package Vector;
 
+import java.io.Serializable;
+
 import Color.*;
 
 /**
  * Abstract class for creating a 3D Vector class
  * The vector will be represented by one point. The other is assumed to be (0, 0, 0)
  */
-public abstract class VectorAbstract {
+public abstract class VectorAbstract implements Serializable {
 
+	public static final long serialVersionUID = 2L;
 	/**
 	 * The vector is stored as a direction vector (not tail and head form.) This will
 	 * simplify manipulations to be performed later.

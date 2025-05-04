@@ -1,6 +1,11 @@
 package Color;
 
-public abstract class ColorAbstract {
+import java.io.Serializable;
+
+public abstract class ColorAbstract implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * the red, green, and blue component values stored
 	 * in range [0.0 .. 1.0]

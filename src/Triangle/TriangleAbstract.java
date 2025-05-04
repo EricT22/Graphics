@@ -1,12 +1,18 @@
 package Triangle;
 
 import Vector.VectorAbstract;
+
+import java.io.Serializable;
+
 import Shader.*;
 
 /**
  * Abstract class for creating a Triangle class
  */
-public abstract class TriangleAbstract {
+public abstract class TriangleAbstract implements Serializable{
+
+	private static final long serialVersionUID = 1234567890123456789L;
+
 	/**
 	 * An array of vertices (which can be treated as points since VectorAbstract stores
 	 * a vector as a direction vector (not tail and head), should be size 3.
