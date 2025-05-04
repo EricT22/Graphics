@@ -1,7 +1,14 @@
 package Scene;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +21,9 @@ import Color.*;
 import Common.*;
 
 
-public class SceneObject extends SceneObjectAbstract {
+public class SceneObject extends SceneObjectAbstract implements Serializable{
 
+	private static final long serialVersionUID = 8767842381397319727L;
 
 	public SceneObject() {
 		super();
@@ -196,5 +204,44 @@ public class SceneObject extends SceneObjectAbstract {
 		return so;
 	}
 
-	
+	public void serialize(String pathname){
+		try {
+            FileOutputStream fos = new FileOutputStream(new File(pathname));
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(this);
+            oos.flush();
+            oos.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        } catch (IOException e){
+            System.out.println("Can't read file.");
+        }
+	}
+
+	public void deserialize(String pathname){
+		try {
+            FileInputStream fis = new FileInputStream(new File(pathname));
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            Object o = ois.readObject();
+            ois.close();
+            fis.close();
+
+            if (o instanceof SceneObject){
+                SceneObject so = (SceneObject) o;
+                this.triangles = so.triangles;
+				
+            } else {
+                System.out.println("Expected a SceneObject, got a " + o.getClass().getName());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        } catch (IOException e){
+            System.out.println("Can't read file.");
+        } catch (ClassNotFoundException e){
+            System.out.println("Class not found.");
+        }
+	}
 }
