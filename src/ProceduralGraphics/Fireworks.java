@@ -59,16 +59,19 @@ public class Fireworks {
                 fireworksBufferToFrameBuffer(fireworksBuffer, framebuffer);
 
                 try {
-                    if (counter < 10){
-                        ReadWriteImage.writeImage(framebuffer, filename + "0" + counter + ".PNG");
-                    } else {
-                        ReadWriteImage.writeImage(framebuffer, filename + counter + ".PNG");
-                    }
+                    ReadWriteImage.writeImage(framebuffer, Final.project.getFilename(counter, "spread") + ".PNG");
                     counter++;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+        }
+
+        framebuffer = copyFrameBuffer(copy);
+        try {
+            ReadWriteImage.writeImage(framebuffer, Final.project.getFilename(counter, "spread") + ".PNG");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
