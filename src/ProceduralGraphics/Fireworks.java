@@ -35,7 +35,8 @@ public class Fireworks {
     }
 
     private void generateImages(int[][][] framebuffer, VectorAbstract viewpoint, String filename) {
-        framebuffer = new int[framebuffer.length][framebuffer[0].length][framebuffer[0][0].length];
+        int[][][] copy = copyFrameBuffer(framebuffer);
+        int[][][] fireworksBuffer = initFireworksBuffer(framebuffer.length, framebuffer[0].length, framebuffer[0][0].length);
         try {
             ReadWriteImage.writeImage(framebuffer, filename + "00.PNG");
         } catch (IOException e) {
@@ -45,13 +46,18 @@ public class Fireworks {
         int counter = 1;
         for (int i = 1; i <= 200; i++){
 
-            framebuffer = new int[framebuffer.length][framebuffer[0].length][framebuffer[0][0].length];
-
             for (Particle p : particles){
                 p.update();
-                p.render(framebuffer, viewpoint);
             }
+            
             if (i % 4 == 0){
+                fireworksBuffer = initFireworksBuffer(framebuffer.length, framebuffer[0].length, framebuffer[0][0].length);
+                framebuffer = copyFrameBuffer(copy);
+                for (Particle p : particles){
+                    p.render(fireworksBuffer, viewpoint);
+                }
+                fireworksBufferToFrameBuffer(fireworksBuffer, framebuffer);
+
                 try {
                     if (counter < 10){
                         ReadWriteImage.writeImage(framebuffer, filename + "0" + counter + ".PNG");
@@ -64,6 +70,46 @@ public class Fireworks {
                 }
             }
         }
+    }
+
+    private int[][][] initFireworksBuffer(int layers, int rows, int cols){
+        int[][][] shadeBuffer = new int[layers][rows][cols];
+
+        for (int i = 0; i < layers; i++){
+            for (int j = 0; j < rows; j++){
+                for (int k = 0; k < cols; k++){
+                    shadeBuffer[i][j][k] = -1;
+                }
+            }
+        }
+
+        return shadeBuffer;
+    }
+
+    private void fireworksBufferToFrameBuffer(int[][][] fireworks, int[][][] frame){
+        for (int i = 0; i < fireworks.length; i++){
+            for (int j = 0; j < fireworks[0].length; j++){
+                for (int k = 0; k < fireworks[0].length; k++){
+                    if (fireworks[i][j][k] != -1) {
+                        frame[i][j][k] = fireworks[i][j][k];
+                    }
+                }
+            }
+        }
+    } 
+
+    private int[][][] copyFrameBuffer(int[][][] framebuffer){
+        int[][][] copy = new int[framebuffer.length][framebuffer[0].length][framebuffer[0][0].length];
+
+        for (int i = 0; i < framebuffer.length; i++){
+            for (int j = 0; j < framebuffer[0].length; j++){
+                for (int k = 0; k < framebuffer[0].length; k++){
+                        copy[i][j][k] = framebuffer[i][j][k];
+                }
+            }
+        }
+
+        return copy;
     }
 
 
