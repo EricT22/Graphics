@@ -38,7 +38,7 @@ public class Fireworks {
         int[][][] copy = copyFrameBuffer(framebuffer);
         int[][][] fireworksBuffer = initFireworksBuffer(framebuffer.length, framebuffer[0].length, framebuffer[0][0].length);
         try {
-            ReadWriteImage.writeImage(framebuffer, filename + "00.PNG");
+            ReadWriteImage.writeImage(framebuffer, Final.project.getFilename(counter, filename) + ".PNG");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,6 +123,6 @@ public class Fireworks {
         VectorAbstract ep = new Vector(512, 512, 512, c);
 
         Fireworks f = new Fireworks(ep, 100);
-        f.launch(framebuffer, 0, viewpoint, "fireworks", c, 1);
+        f.launch(framebuffer, 0, viewpoint, "fireworks", c, 0);
     }
 }
