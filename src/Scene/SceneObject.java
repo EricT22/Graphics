@@ -1,6 +1,7 @@
 package Scene;
 
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -209,7 +210,12 @@ public class SceneObject extends SceneObjectAbstract implements Serializable{
             FileOutputStream fos = new FileOutputStream(new File(pathname));
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            oos.writeObject(this);
+            for (TriangleAbstract t : triangles){
+				for (VectorAbstract v : t.getVertices()){
+					oos.writeObject(v);
+				}
+			}
+
             oos.flush();
             oos.close();
             fos.close();
@@ -225,17 +231,35 @@ public class SceneObject extends SceneObjectAbstract implements Serializable{
             FileInputStream fis = new FileInputStream(new File(pathname));
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            Object o = ois.readObject();
-            ois.close();
-            fis.close();
+			ArrayList<VectorAbstract> vertices = new ArrayList<>();
+			while (true){
+				try {
+					Object o = ois.readObject();
+			
+					if (o instanceof VectorAbstract){
+						VectorAbstract v = (VectorAbstract) o;
+						vertices.add(v);
+						
+					} else {
+						System.out.println("Expected a VectorAbstract, got a " + o.getClass().getName());
+					}
+				} catch (EOFException e){
+					break;
+				}
+			}
 
-            if (o instanceof SceneObject){
-                SceneObject so = (SceneObject) o;
-                this.triangles = so.triangles;
-				
-            } else {
-                System.out.println("Expected a SceneObject, got a " + o.getClass().getName());
-            }
+			ois.close();
+			fis.close();
+
+			try {
+				triangles = new ArrayList<>();
+
+				for (int i = 0; i < vertices.size(); i += 3){
+					triangles.add(new Triangle(vertices.get(i), vertices.get(i + 1), vertices.get(i + 2)));
+				}
+			} catch (IndexOutOfBoundsException e){
+				System.out.println("Not enough vertices.");
+			}
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
         } catch (IOException e){
@@ -243,5 +267,10 @@ public class SceneObject extends SceneObjectAbstract implements Serializable{
         } catch (ClassNotFoundException e){
             System.out.println("Class not found.");
         }
+	}
+
+
+	public ArrayList<TriangleAbstract> getTriangles(){
+		return triangles;
 	}
 }
