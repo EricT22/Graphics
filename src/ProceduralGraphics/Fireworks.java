@@ -19,7 +19,7 @@ public class Fireworks {
         this.explodingPoint = explodingPoint;
     }
 
-    public void launch(int[][][] framebuffer, long seed, VectorAbstract viewpoint, String filename, ColorAbstract c){
+    public void launch(int[][][] framebuffer, long seed, VectorAbstract viewpoint, String filename, ColorAbstract c, int counter){
         Random r = new Random(seed);
 
         for (int i = 0; i < particles.length; i++){
@@ -31,10 +31,10 @@ public class Fireworks {
             particles[i] = new Particle(((Vector)explodingPoint).copy(), v, c);
         }
 
-        generateImages(framebuffer, viewpoint, filename);
+        generateImages(framebuffer, viewpoint, filename, counter);
     }
 
-    private void generateImages(int[][][] framebuffer, VectorAbstract viewpoint, String filename) {
+    private void generateImages(int[][][] framebuffer, VectorAbstract viewpoint, String filename, int counter) {
         int[][][] copy = copyFrameBuffer(framebuffer);
         int[][][] fireworksBuffer = initFireworksBuffer(framebuffer.length, framebuffer[0].length, framebuffer[0][0].length);
         try {
@@ -43,7 +43,6 @@ public class Fireworks {
             e.printStackTrace();
         }
         
-        int counter = 1;
         for (int i = 1; i <= 200; i++){
 
             for (Particle p : particles){
@@ -59,7 +58,7 @@ public class Fireworks {
                 fireworksBufferToFrameBuffer(fireworksBuffer, framebuffer);
 
                 try {
-                    ReadWriteImage.writeImage(framebuffer, Final.project.getFilename(counter, "spread") + ".PNG");
+                    ReadWriteImage.writeImage(framebuffer, Final.project.getFilename(counter, filename) + ".PNG");
                     counter++;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -69,7 +68,7 @@ public class Fireworks {
 
         framebuffer = copyFrameBuffer(copy);
         try {
-            ReadWriteImage.writeImage(framebuffer, Final.project.getFilename(counter, "spread") + ".PNG");
+            ReadWriteImage.writeImage(framebuffer, Final.project.getFilename(counter, filename) + ".PNG");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,6 +123,6 @@ public class Fireworks {
         VectorAbstract ep = new Vector(512, 512, 512, c);
 
         Fireworks f = new Fireworks(ep, 100);
-        f.launch(framebuffer, 0, viewpoint, "fireworks", c);
+        f.launch(framebuffer, 0, viewpoint, "fireworks", c, 1);
     }
 }
