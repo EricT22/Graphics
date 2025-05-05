@@ -64,7 +64,7 @@ public class ReadWriteImage {
 	    		}
 	    	}
 			
-			ImageIO.write(bi, "PNG", new File("Graphics/test/" + filename));
+			ImageIO.write(bi, "PNG", new File("Graphics/project/" + filename));
 		}
 		catch (IOException e) {
 			throw e;
