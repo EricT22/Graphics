@@ -19,8 +19,10 @@ public class Fireworks {
         this.explodingPoint = explodingPoint;
     }
 
-    public void launch(int[][][] framebuffer, long seed, VectorAbstract viewpoint, String filename, ColorAbstract c, int counter){
+    public int launch(int[][][] framebuffer, long seed, VectorAbstract viewpoint, String filename, ColorAbstract c, int counter){
         Random r = new Random(seed);
+
+        explodingPoint.setColor((Color)c);
 
         for (int i = 0; i < particles.length; i++){
             Vector v = new Vector((r.nextDouble() - 0.5) * 10,
@@ -31,10 +33,10 @@ public class Fireworks {
             particles[i] = new Particle(((Vector)explodingPoint).copy(), v, c);
         }
 
-        generateImages(framebuffer, viewpoint, filename, counter);
+        return generateImages(framebuffer, viewpoint, filename, counter);
     }
 
-    private void generateImages(int[][][] framebuffer, VectorAbstract viewpoint, String filename, int counter) {
+    private int generateImages(int[][][] framebuffer, VectorAbstract viewpoint, String filename, int counter) {
         int[][][] copy = copyFrameBuffer(framebuffer);
         int[][][] fireworksBuffer = initFireworksBuffer(framebuffer.length, framebuffer[0].length, framebuffer[0][0].length);
         try {
@@ -69,9 +71,11 @@ public class Fireworks {
         framebuffer = copyFrameBuffer(copy);
         try {
             ReadWriteImage.writeImage(framebuffer, Final.project.getFilename(counter, filename) + ".PNG");
+            counter++;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return counter;
     }
 
     private int[][][] initFireworksBuffer(int layers, int rows, int cols){
